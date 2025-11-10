@@ -658,7 +658,10 @@ pub fn parse_path(path: &PathBuf, config: &ParseConfig) -> anyhow::Result<ParseO
             Ok(r) => r,
             Err(err) => {
                 multi.suspend(|| {
-                    eprintln!("Failed to parse metadata JSON: {}\n{:?}", payload, err);
+                    eprintln!(
+                        "Failed to parse metadata JSON: \n{:?} on line {}",
+                        err, lineno
+                    );
                 });
                 stats.fail_json += 1;
                 write_to_shortraw(&mut shortraw_content, None, &multi, &mut stats);
