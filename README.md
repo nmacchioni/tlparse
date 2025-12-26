@@ -4,12 +4,18 @@
 Quick start:
 Run PT2 with the TORCH_TRACE environment variable set:
 ```
-TORCH_TRACE=/tmp/my_traced_log_dir example.py
+TORCH_TRACE=/tmp/my_traced_log_dir python example.py
 ```
 
-Feed input into tlparse:
+Feed input into tlparse (this will process the latest log file in the directory):
 ```
-tlparse /tmp/my_traced_log_dir -o tl_out/
+tlparse /tmp/my_traced_log_dir -o tl_out/ --latest
+```
+
+You can also specify a log filename:
+
+```
+tlparse /tmp/my_traced_log_dir/dedicated_log_torch_trace_ro2i1hvn.log -o tl_out/
 ```
 
 ## Adding custom parsers

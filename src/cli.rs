@@ -108,7 +108,7 @@ fn main() -> anyhow::Result<()> {
         handle_one_rank(
             &config,
             path,
-            cli.latest,
+            false, // already converted path to latest log file
             cli.out,
             !cli.no_browser,
             cli.overwrite,
