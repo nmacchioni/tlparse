@@ -997,6 +997,33 @@ impl StructuredLogParser for ArtifactParser {
     }
 }
 
+pub struct MemoizerArtifactsParser;
+impl StructuredLogParser for MemoizerArtifactsParser {
+    fn name(&self) -> &'static str {
+        "memoizer_artifacts"
+    }
+    fn get_metadata<'e>(&self, e: &'e Envelope) -> Option<Metadata<'e>> {
+        e.memoizer_artifacts
+            .as_ref()
+            .map(|m| Metadata::MemoizerArtifacts(m))
+    }
+    fn parse<'e>(
+        &self,
+        lineno: usize,
+        _metadata: Metadata<'e>,
+        _rank: Option<u32>,
+        compile_id: &Option<CompileId>,
+        _payload: &str,
+    ) -> anyhow::Result<ParserResults> {
+        payload_reformat_file_output(
+            "memoizer_artifacts.json",
+            lineno,
+            compile_id,
+            format_json_pretty,
+        )
+    }
+}
+
 fn render_sym_expr_trie(
     expr: u64,
     sym_expr_info_index: &SymExprInfoIndex,

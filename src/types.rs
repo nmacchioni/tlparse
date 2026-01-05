@@ -447,6 +447,12 @@ pub struct ArtifactMetadata {
     pub encoding: String,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct MemoizerArtifactsMetadata {
+    pub aggregated: Option<bool>,
+    pub sub_key: Option<String>,
+}
+
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct CompilationMetricsMetadata {
     // Other information like frame_key are already in envelope
@@ -699,6 +705,7 @@ pub enum Metadata<'e> {
     AOTAutogradBackwardCompilationMetrics(&'e AOTAutogradBackwardCompilationMetricsMetadata),
     BwdCompilationMetrics(&'e BwdCompilationMetricsMetadata),
     Artifact(&'e ArtifactMetadata),
+    MemoizerArtifacts(&'e MemoizerArtifactsMetadata),
     DumpFile(&'e DumpFileMetadata),
     GuardAddedFast(&'e GuardAddedFastMetadata),
     SymbolicShapePropagateRealTensor(&'e SymbolicShapePropagateRealTensorMetadata),
@@ -754,6 +761,7 @@ pub struct Envelope {
     pub missing_fake_kernel: Option<FakeKernelMetadata>,
     pub mismatched_fake_kernel: Option<FakeKernelMetadata>,
     pub artifact: Option<ArtifactMetadata>,
+    pub memoizer_artifacts: Option<MemoizerArtifactsMetadata>,
     pub describe_storage: Option<StorageDesc>,
     pub describe_tensor: Option<TensorDesc>,
     pub describe_source: Option<SourceDesc>,
